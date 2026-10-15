@@ -73,7 +73,11 @@ if (!initializedSession) {
   initializedSession = session;
 }
 streamsDevice = SDK.createDevice(address, (event) => {
-  if (event.type === 'statusChange') handleStatus(event);
+  if (event.type === 'statusChange' && event.data === 'connected') {
+    setConnection('connected', 'Phone connected · listening');
+  } else if (event.type === 'statusChange' && event.error) {
+    setConnection('error', event.error.message || 'Streams SDK connection error');
+  }
   if (event.type === 'data') {
     const reading = findAudioReading(event.data);
     if (reading) onLevel(reading.db);
