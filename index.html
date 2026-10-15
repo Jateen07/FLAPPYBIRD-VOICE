@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101629">
+  <title>Scream Bird — voice controlled Flappy Bird</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="game.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Scream Bird home"><span class="brand-mark">SB</span><span>SCREAM <b>BIRD</b></span></a>
+      <span class="edition">A voice controlled arcade game</span>
+    </header>
+
+    <section class="game-layout" aria-label="Scream Bird game">
+      <div class="game-column">
+        <div class="game-heading"><div><p class="eyebrow">AUDIO PHYSICS · BROWSER GAME</p><h1>Make some noise.<br><span>Catch the sky.</span></h1></div><div class="score-badge"><span>FLIGHT SCORE</span><strong id="score">0</strong></div></div>
+        <div class="canvas-frame">
+          <canvas id="board" width="360" height="640" aria-label="Scream Bird game canvas"></canvas>
+          <div id="game-overlay" class="game-overlay">
+            <div class="overlay-card"><div class="bird-stamp">🐤</div><p class="eyebrow" id="overlay-kicker">READY FOR TAKEOFF?</p><h2 id="overlay-title">Let your voice<br>lift you up.</h2><p id="overlay-copy">Connect your phone microphone, then shout or make a loud sound to flap.</p><button class="primary-button" id="play-button">Start flight <span>→</span></button><p class="overlay-hint">Or press <kbd>SPACE</kbd> to flap</p></div>
+          </div>
+        </div>
+        <div class="game-footer"><span><i class="pulse-dot"></i> <span id="flight-state">WAITING TO START</span></span><span>SPACE · ↑ · TAP TO FLAP</span></div>
+      </div>
+
+      <aside class="control-panel">
+        <div class="panel-title"><div><p class="eyebrow">LIVE INPUT</p><h2>Phone microphone</h2></div><span class="connection-dot" id="connection-dot"></span></div>
+        <p class="panel-copy">Your phone streams sound level over your local Wi-Fi. Scream Bird receives the level only; no audio is recorded.</p>
+        <div class="connection-status" id="connection-status"><span class="status-icon">⌁</span><span id="connection-text">Not connected</span></div>
+
+        <label for="server-url">Streams server address</label>
+        <input id="server-url" type="text" value="10.89.84.190:3000" autocomplete="url" spellcheck="false">
+        <label for="session-id">Session ID</label>
+        <div class="session-row"><input id="session-id" type="text" value="" placeholder="Enter Streams session ID" autocomplete="off" spellcheck="false"><button id="toggle-session" class="icon-button" type="button" aria-label="Show or hide session ID" title="Show or hide session ID">◉</button></div>
+        <button id="connect-button" class="connect-button" type="button">Connect phone <span>↗</span></button>
+        <p class="local-note">Laptop and phone need to be on the same Wi-Fi. Start the microphone sensor in Streams first.</p>
+
+        <div class="divider"></div>
+        <div class="meter-head"><span>MIC LEVEL</span><strong id="level-readout">— dB</strong></div>
+        <div id="meter-track" class="meter-track" role="meter" aria-label="Microphone level" aria-valuemin="0" aria-valuemax="120" aria-valuenow="0"><div class="meter-fill" id="meter-fill"></div><div class="threshold-marker" id="threshold-marker"></div></div>
+        <div class="meter-labels"><span>QUIET</span><span>LOUD</span></div>
+        <label class="threshold-label" for="threshold">FLAP WHEN LEVEL REACHES <strong id="threshold-value">72 dB</strong></label>
+        <input id="threshold" type="range" min="30" max="120" value="72" step="1">
+        <button id="calibrate-button" class="secondary-button" type="button">Calibrate to room noise</button>
+        <div class="input-hint"><span class="hint-icon">↟</span><span>Hold a loud sound to flap repeatedly. Quiet lets the bird fall and re-arms the trigger.</span></div>
+
+        <details class="advanced"><summary>Sensor message details</summary><p id="sensor-detail">Waiting for microphone readings. The game recognizes dB, amplitude, and level fields in Streams data.</p></details>
+      </aside>
+    </section>
+    <footer class="page-footer"><span>SCREAM BIRD <span class="footer-dot">•</span> STUDENT PROJECT</span><span>HTML Canvas + nikki Streams browser SDK</span></footer>
+  </main>
+</body>
+</html>
